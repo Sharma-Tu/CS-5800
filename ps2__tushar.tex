@@ -1,0 +1,267 @@
+%% LyX 2.3.2-2 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt]{article}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\InputIfFileExists{t2aenc.def}{}{%
+  \errmessage{File `t2aenc.def' not found: Cyrillic script not supported}}
+\DeclareRobustCommand{\cyrtext}{%
+  \fontencoding{T2A}\selectfont\def\encodingdefault{T2A}}
+\DeclareRobustCommand{\textcyr}[1]{\leavevmode{\cyrtext #1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+% who=0 student solutions
+% who=1 - my solutions
+% who=2 - assignment
+% who=3 recitation problems
+% who=4 recitation solution sketches
+% Everyone changes these:
+\def\who{2}                        %Set to 0 when filling solutions
+\def\name{Fill Submitter's Name}          %Student name
+% Instructors will set these:
+\def\num{2}  %homework number
+\def\assigneddate{September 20, 2019}  %assigned date/start date for recitations
+\def\duedate{September 27, 2019}  %due date/end date for recitations
+\def\course{CS5800 Algorithms} %course name
+\def\instructorname{Ravi Sundaram}          %Instructor's name
+%
+%
+
+% Don't change anything below
+\usepackage{amsfonts}
+\usepackage{latexsym}
+
+
+\ifnum\who<3
+\renewcommand{\thepage}{Problem Set \num, Page \arabic{page}}
+\fi
+\ifnum\who>2
+\renewcommand{\thepage}{Recitation (\assigneddate{}~-~\duedate{}), Page \arabic{page}}
+\fi
+
+% \setlength{\fboxsep}{1.5ex}
+% \setlength{\fboxrule}{0.25ex}
+% Arguments are in order: assigned date, Name, due date and central text
+\newcommand{\handout}[4]{
+  \noindent
+  \begin{center}
+    \framebox{
+      \parbox{0.9\textwidth}{
+        \begin{minipage}[c][1.5em][t]{0.9\textwidth}
+          \textbf{\course} \hfill \textit{#1}
+          \end{minipage}
+        \begin{minipage}[c][2em][c]{0.9\textwidth}
+          {\Large \hfill #4  \hfill}
+          \end{minipage}
+        \begin{minipage}[c][1.5em][b]{0.9\textwidth}
+          \textbf{#2} \hfill \textit{#3}
+          \end{minipage}
+      }
+    }
+  \end{center}
+  \vspace{2ex}
+}
+
+\newcounter{problemCounter}
+\newcommand{\problemNumber}{\arabic{problemCounter}}  %problem number
+\newcommand{\increaseProblemCounter}{\addtocounter{problemCounter}{1}}  %problem number
+
+%first argument desription, second number of points
+\newcommand{\newproblem}[2]{
+\increaseProblemCounter
+\section*{Problem \problemNumber~(#1) \hfill {#2}}
+}
+
+\newcommand{\qed}{\newline\hspace*{\fill}$\blacksquare$}
+\newenvironment{solution}{\par\noindent\subsection*{Solution:}}{\qed}
+\newenvironment{solsketch}{\par\noindent\subsection*{Solution Sketch:}}{\qed}
+
+\renewcommand{\eqref}[1]{Equation~(\ref{eq:#1})}
+
+\newcommand{\hint}[1]{(\textbf{Hint}: {#1})}
+%Put more macros here, as needed.
+\newcommand{\room}{\medskip\ni}
+\newcommand{\set}[1]{\{#1\}}
+
+\makeatother
+
+\begin{document}
+% Choosing the right arguments to \handout, don't edit here, edit variables above
+\ifnum\who=0 \handout{Out: \assigneddate}{Name: \name{}}{Due:
+\duedate}{Solutions to Problem Set \num} \textbf{Group members:}
+{*}{*}{*}{*} Write the names of all group members here. Use the submitter's
+name in the \verb|\name{}| command. {*}{*}{*}{*} \fi \ifnum\who=1
+\handout{Out: \assigneddate}{Name: \name{}}{Due: \duedate}{Solutions
+for Problem Set \num} \fi \ifnum\who=2 \handout{Out: \assigneddate}{\instructorname}{Due:
+\duedate}{Problem Set \num} \fi \ifnum\who=3 \handout{}{\instructorname}{}{Recitations
+from \assigneddate{} to \duedate} \fi \ifnum\who=4 \handout{}{\instructorname}{}{Solutions
+for Recitations from \assigneddate{} to \duedate} \fi
+
+\newproblem{Solving recurrences}{10+5} Solve the recurrence $T(n)=2T(\sqrt{n})+1$
+first by directly adding up the work done in each iteration and then
+using the Master Theorem.
+
+\newproblem{Recursion}{5+10} Consider the following recursive function
+$\ell(n)$:
+
+\begin{align*}
+\ell(n)=\begin{cases}
+0 & \text{ if }n=0\\
+\ell(n/2) & \text{ if n is even}\\
+1+\ell((n-1)/2) & \text{ if n is odd}
+\end{cases}
+\end{align*}
+
+\begin{enumerate}
+\item Describe what the function $\ell(n)$ is calculating. Your description
+should make sense to a computer scientist, but be independent of the
+recursive definition. 
+\item Give a recurrence relation for the run time of $\ell(n)$, and solve
+it to get the run time of $\ell(n)$.
+\end{enumerate}
+
+\section*{Solution:}
+
+\subsection*{To write a recurrence relationship, first we will need to make a
+few assumptions:}
+\begin{enumerate}
+\item $l((n-1)/2)$ takes almost as much time as $l(n/2)$ in the worst
+case
+\item We will have to add 1 for every step in the worst case
+\end{enumerate}
+
+\subsection*{Given above 2 assumptions we can say that, T(n) will be to add a
+constant and a recurrence of T(n/2).}
+
+\subsection*{Therefore we get the following recurrence relationship:}
+
+\[
+T(n)=T(\frac{n}{2})+1
+\]
+
+
+\subsection*{Using master theorem we get: a = 1, b = 2, f(n) = 1, log$_{b}$a
+= 0}
+
+\subsection*{We can write f(n) as log$^{k}$n where k = 0. Hence this becomes
+the case 2 of master theorem.}
+
+\subsection*{Case 2 of master theorem suggests run time of O($n^{log_{b}a}.log^{k+1}n$)
+where k\textgreater =0}
+
+\subsection*{Substituting, log$_{b}$a = 0 and k = 0}
+
+\subsection*{We get T(n) = \textcyr{\CYROTLD}(n$^{0}.log^{0+1}n$) = \textcyr{\CYROTLD}(log(n)).}
+
+\newproblem{Sorting special arrays}{3+4+10+3} Consider the problem
+of sorting an array $A[1,...,n]$ of integers. We presented an $O(n\log n)$-time
+algorithm in class and, also, proved a lower bound of $\Omega(n\log n)$
+for any comparison-based algorithm. 
+\begin{enumerate}
+\item Give an efficient sorting algorithm for a \textbf{\em boolean}\footnote{In a boolean array $B[1,...,n]$, each element $B[i]$ (for $i=1,...,n$)
+is either $0$ or $1$.} array $B[1,...,n]$.
+\item Give an efficient sorting algorithm for an array $C[1,...,n]$ whose
+elements are taken from the set $\{1,2,3,4,5\}$.
+\item Give an efficient sorting algorithm for an array $D[1,...,n]$ whose
+elements are distinct ($D[i]\not=D[j]$, for every $i\not=j\in\{1,...,n\}$)
+and are taken from the set $\{1,2,...,2n\}$.
+\item In case you designed linear-time sorting algorithms for the previous
+subparts, does it mean that the lower bound for sorting of $\Omega(n\log n)$
+is wrong? Explain.
+\end{enumerate}
+\newpage{}
+
+\section*{Solution:}
+
+\subsection*{1. Boolean Array of size 'n' can be sorted in O(n) i.e. linear time
+using following counting algorithm:}
+
+i,count0=0
+
+while i \textless{} n:
+
+	if B{[}i{]}==0 then count0++	//O(n) work done
+
+	i++
+
+newB{[}0:count0{]} = array of 0's
+
+newB{[}count0:n{]} = array of 1's
+
+\subsection*{2. Array C with 'n' elements from set \{1,2,3,4,5\} of 'k=5' items
+can be done using the same counting algorithm. This time we will have
+to do at worse 'k' work for every element in array C.}
+
+i=0,countArray={[}0{]}{*}5
+
+for i in C:
+
+	countArray{[}i-1{]}++	
+
+	i++
+
+\newpage{}
+
+\newproblem{Lower Bounds}{10} Show a $\Omega(\log n)$ lower bound
+for finding elements in a sorted array.
+
+\section*{Solution:}
+
+\subsection*{If we have a list with 'n' elements, we can make a binary tree with
+total 'n' leaves. Then we will have to make 1 comparison at every
+level of the tree.}
+
+\subsection*{Assuming 'h' to be the total number of levels or height of the tree
+we get the following:}
+
+\subsection*{Maximum number of leaves = $2^{h}$ and we can also say, T(n) will
+be O(h) since there is 1 comparison at every level.}
+
+\subsection*{Using the idea of comparison trees for lower bounds, we can get the
+relationship between total number of leaves and minimum number of
+leaves we need.}
+
+\subsection*{Therefore,}
+
+\[
+2^{h}>total_{-}leaves>n
+\]
+
+
+\subsection*{Taking log$_{2}$ on each side,}
+
+\[
+h.log_{2}2>log_{2}n
+\]
+
+\[
+h>log_{2}n
+\]
+
+
+\subsection*{Looking at above relationship we can say that height of the tree
+which is also the total work done T(n) is lower bounded by log$_{2}$n.}
+
+\subsection*{Therefore, for selection in a sorted array T(n) is $\text{\textohm(log n)}$.}
+
+\newproblem{Programming: Counting threshold inversions}{40}
+
+You'll be given an array (of integers) and a threshold value as input,
+write a program to return the number of threshold inversions in the
+array. An inversion between indices $i<j$ is a threshold inversion
+if $a_{i}>t*a_{j}$, where $t$ is the threshold value given as input.
+
+\emph{Hint: Understanding counting inversions (normal inversions,
+without a threshold) will be useful to figure out how to do threshold
+inversions. We will be covering that in the recitations.} {document}
+}{}{}}{}{}
+\end{document}
